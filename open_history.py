@@ -4,6 +4,7 @@ import subprocess
 import webbrowser
 import time
 
+
 def find_firefox():
     """Find the Firefox browser executable."""
     possible_paths = [
@@ -47,10 +48,17 @@ def open_links_in_firefox(urls):
         # Open the first URL normally to create a window if needed
         subprocess.Popen([firefox_path, urls[0]])
         time.sleep(5)  # Give Firefox a moment to open
-
+        i = 0
         # Open subsequent URLs in new tabs
         for url in urls[1:]:
             subprocess.Popen([firefox_path, "-new-tab", url])
+            if i<10:
+                i=i+1
+                print(i)
+            else:
+                i=0
+                time.sleep(30)
+                print(i)
     else:
         print("Firefox not found. Opening URLs in the default browser...")
         webbrowser.open(urls[0])
